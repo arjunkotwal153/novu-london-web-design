@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">Novu London animated 3D cube</title>
+  <desc id="description">An animated editorial banner with an isometric cube, orbiting rings, and softly pulsing highlights.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1200" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f6f3ee"/>
+      <stop offset=".58" stop-color="#e9e6e1"/>
+      <stop offset="1" stop-color="#ded9d1"/>
+    </linearGradient>
+    <linearGradient id="top" x1="782" y1="88" x2="929" y2="176" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffad85"/>
+      <stop offset="1" stop-color="#ff5a1f"/>
+    </linearGradient>
+    <linearGradient id="left" x1="781" y1="175" x2="854" y2="303" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#252322"/>
+      <stop offset="1" stop-color="#0b0b0b"/>
+    </linearGradient>
+    <linearGradient id="right" x1="855" y1="175" x2="929" y2="303" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff7d4c"/>
+      <stop offset="1" stop-color="#c94012"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#ff5a1f" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#ff5a1f" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="710" y="46" width="310" height="340" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="20"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="420" rx="22" fill="url(#background)"/>
+  <circle cx="855" cy="210" r="160" fill="url(#glow)">
+    <animate attributeName="r" values="145;168;145" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values=".65;1;.65" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  <path d="M56 54h1088" stroke="#0b0b0b" stroke-opacity=".13"/>
+  <path d="M56 365h1088" stroke="#0b0b0b" stroke-opacity=".13"/>
+  <text x="66" y="174" fill="#0b0b0b" font-family="Arial,Helvetica,sans-serif" font-size="94" font-weight="800" letter-spacing="-7">NOVU</text>
+  <text x="68" y="237" fill="#0b0b0b" font-family="Arial,Helvetica,sans-serif" font-size="51" font-weight="700" letter-spacing="3">LONDON</text>
+  <rect x="69" y="265" width="72" height="4" rx="2" fill="#ff5a1f">
+    <animate attributeName="width" values="36;104;36" dur="3.6s" repeatCount="indefinite"/>
+  </rect>
+  <text x="68" y="302" fill="#5f5a53" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="4">DIGITAL COUTURE, IN MOTION</text>
+  <text x="68" y="344" fill="#0b0b0b" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="700" letter-spacing="2">MADE BY KAMLESH SINGH KOTWAL</text>
+  <ellipse cx="855" cy="312" rx="100" ry="22" fill="#0b0b0b" fill-opacity=".2" filter="url(#shadow)"/>
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 -8;0 0" dur="4s" repeatCount="indefinite"/>
+    <path d="M855 77 958 135 855 194 752 135 855 77Z" fill="url(#top)" stroke="#fff" stroke-opacity=".65" stroke-width="2"/>
+    <path d="M752 135 855 194v118l-103-59V135Z" fill="url(#left)" stroke="#fff" stroke-opacity=".3" stroke-width="2"/>
+    <path d="M958 135 855 194v118l103-59V135Z" fill="url(#right)" stroke="#fff" stroke-opacity=".45" stroke-width="2"/>
+    <path d="m855 105 53 30-53 30-53-30 53-30Z" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>
+    <path d="M855 194v118" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+    <path d="m855 105 53 30-53 30-53-30 53-30Z" fill="#fff" fill-opacity=".13">
+      <animate attributeName="fill-opacity" values=".06;.24;.06" dur="3s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  <g opacity=".65">
+    <ellipse cx="855" cy="194" rx="164" ry="65" stroke="#ff5a1f" stroke-opacity=".58" stroke-width="1.5" transform="rotate(-24 855 194)"/>
+    <ellipse cx="855" cy="194" rx="164" ry="65" stroke="#0b0b0b" stroke-opacity=".2" stroke-width="1" transform="rotate(58 855 194)"/>
+    <g>
+      <circle cx="0" cy="0" r="5" fill="#ff5a1f"/>
+      <animateMotion dur="12s" repeatCount="indefinite" path="M855 129 C946 124 1026 178 990 222 C952 265 836 254 764 204 C702 161 768 127 855 129Z"/>
+    </g>
+    <g>
+      <circle cx="0" cy="0" r="3.5" fill="#0b0b0b">
+        <animate attributeName="opacity" values=".2;1;.2" dur="2.4s" repeatCount="indefinite"/>
+      </circle>
+      <animateMotion dur="15s" repeatCount="indefinite" path="M855 129 C946 124 1026 178 990 222 C952 265 836 254 764 204 C702 161 768 127 855 129Z" begin="-6s"/>
+    </g>
+  </g>
+  <circle cx="1052" cy="108" r="3" fill="#ff5a1f">
+    <animate attributeName="opacity" values=".2;1;.2" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="720" cy="270" r="2.5" fill="#0b0b0b">
+    <animate attributeName="opacity" values="1;.25;1" dur="2.8s" repeatCount="indefinite"/>
+  </circle>
+</svg>

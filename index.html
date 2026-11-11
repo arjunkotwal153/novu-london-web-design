@@ -1,0 +1,1480 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fully 3D fashion characters, ready to redesign digital couture.">
+  <meta name="theme-color" content="#e9e6e1">
+  <title>Novu® London — High-Fashion Novus</title>
+  <style>
+    @font-face {
+      font-family: Archivo;
+      src: url("https://fonts.gstatic.com/s/archivo/v25/k3kQo8UDI-1M0wlSfdnoLg.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 100 900;
+      font-stretch: 62% 125%;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: Outfit;
+      src: url("https://fonts.gstatic.com/s/outfit/v15/QGYvz_MVcBeNP4NJtEtq.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+    }
+
+    :root {
+      --bg: #e9e6e1;
+      --ink: #0b0b0b;
+      --mute: #77736d;
+      --pill: rgba(255,255,255,.42);
+      --line: rgba(11,11,11,.14);
+      --accent: #ff5a1f;
+      --vw: 1440;
+      --u: calc(var(--vw)*1px/1440);
+      --n: min(var(--vw)*1px/1440, 100svh/760);
+    }
+
+    *, *::before, *::after { box-sizing: border-box }
+    html, body { margin: 0; min-height: 100%; background: var(--bg) }
+    html { scroll-behavior: auto }
+    body {
+      color: var(--ink);
+      font-family: Archivo, Arial, sans-serif;
+      font-size: 16px;
+      font-stretch: 112%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none }
+    button { color: inherit; font: inherit; border: 0; padding: 0; background: none; cursor: pointer }
+    img { display: block; max-width: 100% }
+
+    .grain, .vignette { position: fixed; inset: 0; pointer-events: none }
+    .grain {
+      z-index: 60;
+      inset: -50%;
+      opacity: .07;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+      animation: grain 1s steps(6) infinite;
+    }
+    .vignette { z-index: 59; box-shadow: inset 0 0 0 220px rgba(60,52,44,.22) }
+    @keyframes grain {
+      0%,100% { transform: translate(0,0) }
+      20% { transform: translate(-3%,2%) }
+      40% { transform: translate(2%,-4%) }
+      60% { transform: translate(-4%,-1%) }
+      80% { transform: translate(3%,3%) }
+    }
+
+    .top-nav {
+      position: fixed;
+      z-index: 40;
+      inset: 0 0 auto;
+      height: calc(66*var(--n));
+      pointer-events: none;
+    }
+    .top-nav > * { pointer-events: auto }
+    .pill {
+      position: absolute;
+      top: calc(8*var(--n));
+      height: calc(50*var(--n));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: calc(16*var(--n));
+      padding: 0 calc(9*var(--n)) 0 calc(24*var(--n));
+      border-radius: 999px;
+      background: var(--pill);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      font-size: calc(13*var(--n));
+      font-weight: 700;
+      font-stretch: 108%;
+      letter-spacing: -.01em;
+      text-transform: uppercase;
+      transition: background .45s cubic-bezier(.2,.8,.2,1), opacity .4s, transform .4s;
+      white-space: nowrap;
+    }
+    .pill:hover { background: rgba(255,255,255,.75) }
+    .pill .circle {
+      width: calc(32*var(--n));
+      height: calc(32*var(--n));
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--ink);
+      display: grid;
+      place-items: center;
+      transition: background .45s, transform .45s cubic-bezier(.2,.8,.2,1);
+    }
+    .pill:hover .circle { background: var(--accent); transform: rotate(90deg) scale(1.08) }
+    .pill svg { width: 10px; height: 10px }
+    .nav-trailer { left: calc(53*var(--n)); width: calc(178*var(--n)) }
+    .nav-market { right: calc(127*var(--n)); width: calc(227*var(--n)) }
+    .nav-center {
+      position: absolute;
+      top: calc(22*var(--n));
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: calc(14.5*var(--n));
+      font-weight: 600;
+      letter-spacing: .04em;
+      white-space: nowrap;
+      transition: opacity .4s, transform .4s;
+    }
+    .menu-button {
+      position: absolute;
+      right: calc(55*var(--n));
+      top: calc(8*var(--n));
+      width: calc(50*var(--n));
+      height: calc(50*var(--n));
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 6px 24px rgba(0,0,0,.06);
+      transition: transform .3s;
+    }
+    .menu-button:hover { transform: scale(1.08) }
+    .menu-lines, .menu-lines::before, .menu-lines::after {
+      position: absolute;
+      width: calc(16*var(--n));
+      height: 2px;
+      border-radius: 2px;
+      background: var(--ink);
+      transition: transform .3s, opacity .2s;
+      content: "";
+    }
+    .menu-lines::before { transform: translateY(calc(-5*var(--n))) }
+    .menu-lines::after { transform: translateY(calc(5*var(--n))) }
+    .menu-open .menu-lines { background: transparent }
+    .menu-open .menu-lines::before { transform: rotate(45deg) }
+    .menu-open .menu-lines::after { transform: rotate(-45deg) }
+    .mini-logo {
+      position: absolute;
+      left: calc(53*var(--n));
+      top: calc(14*var(--n));
+      opacity: 0;
+      transform: translateY(calc(-8*var(--n)));
+      pointer-events: none !important;
+      font-family: Outfit, sans-serif;
+      font-size: calc(30*var(--n));
+      font-weight: 600;
+      letter-spacing: -.02em;
+      transition: opacity .4s, transform .4s;
+    }
+    .mini-logo sup { font-size: .45em; vertical-align: super }
+    .scrolled .mini-logo { opacity: 1; transform: translateY(0); pointer-events: auto !important }
+    .scrolled .nav-trailer, .scrolled .nav-market { opacity: 0; transform: translateY(-10px); pointer-events: none }
+    .scrolled .nav-center { opacity: 0; transform: translate(-50%,-10px) }
+
+    .menu-overlay {
+      position: fixed;
+      z-index: 35;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: calc(18*var(--n));
+      padding: 0 calc(53*var(--n));
+      background: rgba(233,230,225,.86);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .35s, visibility .35s;
+    }
+    .menu-open .menu-overlay { opacity: 1; visibility: visible }
+    .menu-overlay a {
+      width: fit-content;
+      font-size: clamp(36px, calc(66*var(--u)), 90px);
+      font-weight: 850;
+      letter-spacing: -.055em;
+      text-transform: uppercase;
+      transition: color .25s, transform .25s;
+    }
+    .menu-overlay a:hover { color: var(--accent); transform: translateX(10px) }
+    .menu-overlay .num { margin-right: .5em; color: var(--mute); font-size: .22em; letter-spacing: .2em; vertical-align: middle }
+
+    .bottom-bar {
+      position: fixed;
+      z-index: 40;
+      inset: auto 0 0;
+      height: calc(100*var(--n));
+      pointer-events: none;
+      transition: opacity .5s, transform .5s;
+    }
+    .bottom-bar > * { pointer-events: auto }
+    .roadmap {
+      position: absolute;
+      left: calc(53*var(--n));
+      bottom: calc(22*var(--n));
+      width: calc(188*var(--n));
+    }
+    .roadmap .circle svg { width: 17px; height: 17px }
+    .random-novu {
+      position: absolute;
+      left: calc(261*var(--n));
+      bottom: calc(22*var(--n));
+      width: calc(52*var(--n));
+      height: calc(52*var(--n));
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--pill);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      perspective: 500px;
+      transition: transform .3s, background .3s;
+    }
+    .random-novu:hover { transform: translateY(-3px) scale(1.06); background: rgba(255,255,255,.82) }
+    .icon-cube {
+      position: relative;
+      display: block;
+      width: calc(25*var(--n));
+      height: calc(25*var(--n));
+      transform-style: preserve-3d;
+      animation: cube-orbit 9s linear infinite;
+    }
+    .cube-face {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(11,11,11,.16);
+      backface-visibility: hidden;
+    }
+    .cube-front { transform: translateZ(calc(12.5*var(--n))); background: #f4f3f1 }
+    .cube-front svg { width: 78%; height: 78% }
+    .cube-back { transform: rotateY(180deg) translateZ(calc(12.5*var(--n))); background: var(--accent) }
+    .cube-right { transform: rotateY(90deg) translateZ(calc(12.5*var(--n))); background: var(--ink) }
+    .cube-left { transform: rotateY(-90deg) translateZ(calc(12.5*var(--n))); background: #d7d2ca }
+    .cube-top { transform: rotateX(90deg) translateZ(calc(12.5*var(--n))); background: #ff8b62 }
+    .cube-bottom { transform: rotateX(-90deg) translateZ(calc(12.5*var(--n))); background: #9c3519 }
+    @keyframes cube-orbit {
+      from { transform: rotateX(-16deg) rotateY(0deg) }
+      to { transform: rotateX(-16deg) rotateY(360deg) }
+    }
+    .switch-group {
+      position: absolute;
+      left: 50%;
+      bottom: calc(32*var(--n));
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: calc(12*var(--n));
+      white-space: nowrap;
+    }
+    .switch-hint { color: #777; font-size: calc(10*var(--n)); opacity: .85; letter-spacing: .12em }
+    .novubar {
+      height: calc(32*var(--n));
+      padding: 0 calc(36*var(--n));
+      color: #fff;
+      background: var(--ink);
+      box-shadow: 0 3px 0 var(--ink), 0 6px 14px rgba(0,0,0,.18);
+      font-size: calc(13*var(--n));
+      font-weight: 700;
+      letter-spacing: .04em;
+      transition: transform .14s;
+    }
+    .novubar.hit { transform: translateY(3px) }
+    .bar-fashion {
+      position: absolute;
+      left: calc(1111*var(--n));
+      bottom: calc(40*var(--n));
+      font-size: calc(13.5*var(--n));
+      letter-spacing: .015em;
+    }
+    .bar-fashion::after {
+      position: absolute;
+      right: 0;
+      bottom: -3px;
+      left: 0;
+      height: 1.5px;
+      background: var(--ink);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .45s;
+    }
+    .bar-fashion:hover::after { transform: scaleX(1) }
+    .arrow-ne { display: inline-block; transition: transform .25s, color .25s }
+    .bar-fashion:hover .arrow-ne { color: var(--accent); transform: translate(2px,-2px) }
+    .bar-dots { position: absolute; right: calc(58*var(--n)); bottom: calc(43*var(--n)); display: flex; gap: calc(4*var(--n)) }
+    .bar-dots i { width: calc(3.5*var(--n)); height: calc(3.5*var(--n)); border-radius: 50%; background: var(--ink); animation: blink 1.8s infinite }
+    .bar-dots i:nth-child(2) { animation-delay: .12s }
+    .bar-dots i:nth-child(3) { animation-delay: .24s }
+    .bar-dots i:nth-child(4) { animation-delay: .36s }
+    .bar-dots i:nth-child(5) { animation-delay: .48s }
+    @keyframes blink { 50% { opacity: .2 } }
+    .at-end .bottom-bar { opacity: 0; transform: translateY(20px); pointer-events: none }
+
+    .stage { position: relative; z-index: 1; background: transparent }
+    .scene {
+      position: sticky;
+      z-index: 0;
+      top: 0;
+      height: 100svh;
+      margin-bottom: -100svh;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .9s;
+      background: var(--bg);
+    }
+    .scene-on .scene { opacity: 1 }
+    .scene canvas { display: block; width: 100%; height: 100% }
+    .hero, .story { position: relative; z-index: 1; background: transparent }
+    .hero { height: 100svh; min-height: 520px; overflow: hidden }
+    .hero-frame { position: relative; isolation: isolate; width: 100%; height: max(calc(900*var(--u)),100%); overflow: hidden }
+    .hero-still {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 40%;
+    }
+    .wordmark {
+      position: absolute;
+      inset: 0 0 auto;
+      height: calc(270*var(--u));
+      margin: 0;
+      font-size: clamp(70px, calc(177*var(--u)), 260px);
+      font-weight: 650;
+      line-height: 1;
+      letter-spacing: -.055em;
+      white-space: nowrap;
+    }
+    .word-part { position: absolute; top: calc(72.3*var(--u)); display: inline-block }
+    .word-novu { left: calc(53*var(--u)); font-stretch: 107% }
+    .word-london { left: calc(650*var(--u)); font-stretch: 100% }
+    .wordmark .char { display: inline-block }
+    .registered {
+      position: absolute;
+      left: calc(533*var(--u));
+      top: calc(103*var(--u));
+      width: calc(70*var(--u));
+      height: calc(70*var(--u));
+      letter-spacing: 0;
+    }
+    .registered svg { width: 100%; height: 100% }
+    .hero-copy {
+      position: absolute;
+      top: calc(298*var(--u));
+      font-size: calc(16.5*var(--u));
+      line-height: 1.22;
+      font-weight: 600;
+      font-stretch: 104%;
+      letter-spacing: -.005em;
+      text-transform: uppercase;
+    }
+    .hero-copy.one { left: calc(53*var(--u)) }
+    .hero-copy.two { left: calc(339*var(--u)) }
+    .copy-line { display: block; overflow: hidden }
+    .copy-line > span { display: inline-block }
+    .copy-line strong { font-weight: 850 }
+    .hero-tag {
+      position: absolute;
+      top: calc(596*var(--u));
+      left: calc(1022*var(--u));
+      display: flex;
+      align-items: center;
+      gap: calc(8*var(--u));
+      font-size: calc(13.5*var(--u));
+      letter-spacing: .04em;
+    }
+    .hero-tag svg { width: calc(46*var(--u)); height: calc(8*var(--u)); overflow: visible }
+    .hero-tag path { stroke-dasharray: 46; stroke-dashoffset: 46; animation: draw-arrow 2.4s cubic-bezier(.6,0,.2,1) 1.6s infinite }
+    @keyframes draw-arrow { 0% { stroke-dashoffset: 46 } 45%,80% { stroke-dashoffset: 0 } 100% { stroke-dashoffset: -46 } }
+
+    .story { height: 300svh }
+    .story-stick { position: sticky; top: 0; height: 100svh; overflow: hidden }
+    .story-frame { position: relative; height: 100%; width: 100% }
+    .story-still { display: none }
+    .story-panel {
+      position: absolute;
+      top: calc(262*var(--u));
+      left: calc(140*var(--u));
+      width: calc(600*var(--u));
+      opacity: 0;
+      pointer-events: none;
+      transition: left .6s cubic-bezier(.2,.8,.2,1);
+    }
+    .story-label {
+      display: block;
+      color: var(--mute);
+      font-size: calc(11*var(--u));
+      letter-spacing: .35em;
+      font-weight: 500;
+      font-stretch: 125%;
+    }
+    .story-panel h2 {
+      margin: calc(30*var(--u)) 0 0;
+      font-size: calc(40*var(--u));
+      line-height: .92;
+      letter-spacing: -.025em;
+      font-stretch: 125%;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .story-panel h2 span { display: block; overflow: hidden; padding-bottom: .04em }
+    .story-panel h2 em { display: inline-block; font-style: normal }
+    .story-panel p {
+      max-width: calc(330*var(--u));
+      margin: calc(22*var(--u)) 0 0;
+      color: #55514b;
+      font-size: calc(15.5*var(--u));
+      line-height: 1.36;
+      font-stretch: 108%;
+      font-weight: 450;
+    }
+    .story-panel p strong { color: var(--accent); font-weight: 700 }
+    .story-dashes {
+      position: absolute;
+      top: calc(560*var(--u));
+      left: calc(140*var(--u));
+      display: flex;
+      gap: calc(8*var(--u));
+      opacity: 0;
+      transition: left .6s cubic-bezier(.2,.8,.2,1), opacity .35s;
+    }
+    .story-dash { width: calc(46*var(--u)); height: 2px; background: var(--line); overflow: hidden }
+    .story-dash i { display: block; height: 100%; background: var(--ink); transform: scaleX(0); transform-origin: left }
+
+    .partners {
+      position: relative;
+      z-index: 2;
+      padding-top: calc(56*var(--n));
+      background: linear-gradient(to bottom,#e9e6e1,#f1efec 60%,#f4f3f1);
+    }
+    .partners-label, .partners-heading { padding-left: calc(50*var(--n)) }
+    .partners-label {
+      color: var(--mute);
+      font-size: calc(11*var(--n));
+      font-weight: 500;
+      font-stretch: 125%;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+    }
+    .partners-heading {
+      margin: calc(8*var(--n)) 0 0;
+      font-size: calc(42*var(--n));
+      font-weight: 900;
+      font-stretch: 125%;
+      line-height: .9;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+    .track-wrap {
+      overflow-x: auto;
+      overflow-y: hidden;
+      cursor: grab;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      touch-action: pan-x;
+    }
+    .track-wrap::-webkit-scrollbar { display: none }
+    .track { display: flex; gap: calc(20*var(--n)); width: max-content; padding: calc(28*var(--n)) calc(50*var(--n)) 0; perspective: 1200px }
+    .track:active { cursor: grabbing }
+    .card {
+      position: relative;
+      width: calc(253*var(--n));
+      aspect-ratio: 1.179;
+      flex: 0 0 auto;
+      overflow: hidden;
+      border-radius: calc(8*var(--n));
+      background: #cfcbc5;
+      transform: perspective(900px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale(var(--card-scale, 1));
+      transform-style: preserve-3d;
+      transition: transform .55s cubic-bezier(.2,.8,.2,1);
+      will-change: transform;
+    }
+    .card::after {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(255,255,255,.34), transparent 42%);
+      opacity: 0;
+      transition: opacity .35s;
+      content: "";
+    }
+    .card-art {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261107_005542_4250aa05-1091-4015-b242-d58db718f6b7.png&w=2000&q=85");
+      background-size: 304.9% 203.25%;
+      filter: grayscale(.85) contrast(1.02);
+      transform: translateZ(12px) scale(1.02);
+      transition: filter .35s, transform .55s cubic-bezier(.2,.8,.2,1);
+    }
+    .card:hover .card-art, .card:focus-within .card-art { filter: grayscale(0) contrast(1.02) }
+    .card:hover { --card-scale: 1.035; transition-duration: .16s }
+    .card:hover::after { opacity: 1 }
+    .card:hover .card-art { transform: translate3d(0,0,20px) scale(1.06) }
+    .card[data-col="0"] .card-art { background-position-x: .15% }
+    .card[data-col="1"] .card-art { background-position-x: 50.07% }
+    .card[data-col="2"] .card-art { background-position-x: 99.94% }
+    .card[data-row="0"] .card-art { background-position-y: .2% }
+    .card[data-row="1"] .card-art { background-position-y: 99.7% }
+    .card-caption {
+      position: absolute;
+      z-index: 2;
+      inset: auto 0 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: calc(12*var(--n)) calc(14*var(--n));
+      color: #fff;
+      background: linear-gradient(to top,rgba(0,0,0,.55),transparent);
+      font-size: calc(11*var(--n));
+      font-weight: 700;
+      font-stretch: 108%;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      transform: translateY(100%);
+      transition: transform .5s cubic-bezier(.2,.8,.2,1);
+    }
+    .card:hover .card-caption { transform: translateY(0) }
+    .card-meta { font-weight: 500; letter-spacing: .2em; opacity: .8 }
+    .progress-track { position: relative; height: 2px; margin: calc(52*var(--n)) calc(50*var(--n)) 0; background: var(--line) }
+    .progress-fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--ink) }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      column-gap: calc(52*var(--n));
+      padding: calc(76*var(--n)) calc(50*var(--n)) calc(30*var(--n));
+    }
+    .footer-quote, .footer-connect {
+      font-size: calc(21*var(--n));
+      font-weight: 900;
+      font-stretch: 125%;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .footer-manifest { margin-top: calc(18*var(--n)); color: var(--mute); font-size: calc(12.5*var(--n)); font-weight: 450; font-stretch: 108% }
+    .creator-credit {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: calc(12*var(--n));
+      margin: 0 calc(50*var(--n)) calc(30*var(--n));
+      padding: calc(17*var(--n)) calc(20*var(--n));
+      border: 1px solid rgba(255,90,31,.28);
+      background: linear-gradient(105deg, rgba(255,90,31,.09), rgba(255,255,255,.38) 68%);
+      font-size: calc(12*var(--n));
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .creator-credit strong {
+      padding: calc(8*var(--n)) calc(11*var(--n));
+      border-radius: 3px;
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 0 5px 16px rgba(255,90,31,.24);
+      letter-spacing: .1em;
+    }
+    .footer-connect { margin-right: calc(70*var(--n)) }
+    .footer-links { display: flex; flex-direction: column; gap: calc(7*var(--n)) }
+    .footer-links a {
+      color: #4f4b45;
+      font-size: calc(13.5*var(--n));
+      font-stretch: 108%;
+      white-space: nowrap;
+      transition: color .25s;
+    }
+    .footer-links a:hover { color: var(--ink) }
+    .footer-links a span { display: inline-block; transition: color .25s, transform .25s }
+    .footer-links a:hover span { color: var(--accent); transform: translate(2px,-2px) }
+    .legal-row {
+      display: flex;
+      align-items: center;
+      gap: calc(42*var(--n));
+      margin: 0 calc(50*var(--n));
+      padding: calc(36*var(--n)) 0 calc(56*var(--n));
+      border-top: 1px solid var(--line);
+      color: var(--mute);
+      font-size: calc(10*var(--n));
+      font-weight: 600;
+      font-stretch: 125%;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .legal-row strong { color: var(--ink); font-weight: inherit }
+    .legal-spacer { flex: 1 }
+    .legal-row a { transition: color .2s }
+    .legal-row a:hover { color: var(--accent) }
+    .legal-dots { display: flex; gap: calc(4*var(--n)) }
+    .legal-dots i { width: calc(3.5*var(--n)); height: calc(3.5*var(--n)); border-radius: 50%; background: var(--ink); animation: blink 1.8s infinite }
+    .legal-dots i:nth-child(2) { animation-delay: .12s }
+    .legal-dots i:nth-child(3) { animation-delay: .24s }
+    .legal-dots i:nth-child(4) { animation-delay: .36s }
+    .legal-dots i:nth-child(5) { animation-delay: .48s }
+
+    .pre .wordmark .char, .pre .hero-copy, .pre .hero-tag, .pre .nav-trailer, .pre .nav-center, .pre .nav-market, .pre .menu-button, .pre .bottom-bar > * {
+      opacity: 0;
+    }
+    .pre .hero-still { opacity: 0 }
+    .lenis.lenis-smooth { scroll-behavior: auto !important }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain }
+    .lenis.lenis-stopped { overflow: hidden }
+    .lenis.lenis-smooth iframe { pointer-events: none }
+
+    @media (max-width: 820px) {
+      :root { --u: calc(100vw/390); --n: calc(100vw/390) }
+      .grain, .vignette { display: none }
+      .top-nav { height: 70px }
+      .nav-trailer { left: 16px; top: 14px; width: auto; height: 42px; padding: 0 7px 0 16px; gap: 12px; font-size: 11px }
+      .nav-trailer .circle { width: 28px; height: 28px }
+      .nav-market, .nav-center, .mini-logo { display: none }
+      .menu-button { right: 16px; top: 14px; width: 42px; height: 42px }
+      .scrolled .top-nav { background: linear-gradient(to bottom,rgba(233,230,225,.96),rgba(233,230,225,0)) }
+      .bottom-bar { height: 80px }
+      .roadmap, .random-novu, .bar-fashion, .bar-dots { display: none }
+      .switch-group { bottom: 20px; gap: 0 }
+      .switch-hint { display: none }
+      .novubar { height: 38px; padding: 0 28px; font-size: 12px }
+      .hero { min-height: 0; height: auto; overflow: hidden }
+      .hero-frame { height: auto; min-height: 0; padding: 84px 16px 0 }
+      .hero-still { display: block; position: relative; z-index: -1; width: calc(100% + 32px); height: 470px; margin: 20px -16px 0; object-position: 57% 40%; -webkit-mask-image: linear-gradient(to bottom,transparent 0%,#000 26%); mask-image: linear-gradient(to bottom,transparent 0%,#000 26%) }
+      .wordmark { position: relative; height: auto; display: block; font-size: 76px; line-height: .9; white-space: normal; letter-spacing: -.06em }
+      .word-part { position: relative; top: auto; left: auto }
+      .word-novu { display: inline-block }
+      .word-london { display: block; margin-top: 2px }
+      .registered { position: relative; display: inline-block; left: auto; top: -.35em; width: .36em; height: .36em; margin-left: .04em; vertical-align: top }
+      .hero-copy { position: relative; top: auto; left: auto !important; margin-top: 22px; font-size: 14px; line-height: 1.25 }
+      .hero-copy.two { margin-top: 14px }
+      .hero-tag { top: auto; left: auto; right: 18px; bottom: 20px; z-index: 2; font-size: 12px }
+      .hero-tag svg { width: 42px; height: 8px }
+      .story { height: auto; padding: 64px 16px 50px }
+      .story-stick { position: relative; height: auto; overflow: visible }
+      .story-frame { display: flex; flex-direction: column; gap: 44px }
+      .story-panel { position: relative; inset: auto; width: 100%; opacity: 1; pointer-events: auto }
+      .story-label { font-size: 11px }
+      .story-panel h2 { margin-top: 18px; font-size: 33px; line-height: .95 }
+      .story-panel p { max-width: 330px; margin-top: 16px; font-size: 14.5px }
+      .story-dashes { display: none }
+      .story-still { display: block; width: 100%; height: 520px; object-fit: cover; object-position: 72% 50%; border-radius: 3px }
+      .partners { padding-top: 56px }
+      .partners-label, .partners-heading { padding-left: 16px }
+      .partners-label { font-size: 11px }
+      .partners-heading { margin-top: 8px; font-size: 42px }
+      .track { gap: 12px; padding: 28px 16px 0 }
+      .card { width: 240px; border-radius: 8px }
+      .card-art { filter: grayscale(.3) contrast(1.02) }
+      .card:hover .card-art, .card:focus-within .card-art { filter: grayscale(0) contrast(1.02) }
+      .card-caption { transform: none; font-size: 11px; padding: 12px 14px }
+      .progress-track { margin: 40px 16px 0 }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px 18px; padding: 54px 16px 28px }
+      .footer-quote, .footer-connect { grid-column: 1 / -1; font-size: 24px }
+      .footer-connect { margin: 0 }
+      .footer-links a { font-size: 13px; white-space: normal }
+      .creator-credit { gap: 10px; margin: 0 16px 24px; padding: 14px; font-size: 10px; line-height: 1.5 }
+      .creator-credit strong { padding: 7px 9px }
+      .legal-row { flex-wrap: wrap; gap: 18px 22px; margin: 0 16px; padding: 28px 0 110px; font-size: 9px; letter-spacing: .2em; white-space: normal }
+      .legal-spacer { display: none }
+      .legal-dots { margin-left: auto }
+      .at-end .bottom-bar { opacity: 1; transform: none; pointer-events: auto }
+      .scene { display: none }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important }
+      .grain { display: none }
+      .hero-still { display: block; z-index: -1 }
+      .story-still { display: block; position: absolute; right: 6%; bottom: 0; width: auto; height: min(58%, 460px); object-fit: contain; object-position: bottom }
+    }
+  </style>
+</head>
+<body class="pre">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <nav class="top-nav" aria-label="Main navigation">
+    <a class="mini-logo" href="#top" aria-label="Novu home">Novu<sup>®</sup></a>
+    <button class="pill nav-trailer" type="button" aria-label="Play trailer">
+      <span>PLAY TRAILER</span>
+      <span class="circle" aria-hidden="true"><svg viewBox="0 0 10 10"><path d="M2.5 1.2 9 5l-6.5 3.8z" fill="#fff"/></svg></span>
+    </button>
+    <span class="nav-center">HIGH-FASHION NOVUS</span>
+    <a class="pill nav-market" href="#partners">
+      <span>VIEW MARKETPLACE</span>
+      <span class="circle" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"><path d="M3.5 2v6M6.5 2v6"/></svg></span>
+    </a>
+    <button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false"><span class="menu-lines"></span></button>
+  </nav>
+  <div class="menu-overlay" aria-hidden="true">
+    <a href="#top"><span class="num">01</span>The Drop</a>
+    <a href="#walk"><span class="num">02</span>The Walk</a>
+    <a href="#partners"><span class="num">03</span>Partners</a>
+  </div>
+
+  <div class="bottom-bar">
+    <a href="#walk" class="pill roadmap">
+      <span>OUR ROADMAP</span>
+      <span class="circle" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round"><circle cx="5" cy="5" r="2"/><circle cx="15" cy="15" r="2"/><path d="M7 5h4a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h4"/></svg></span>
+    </a>
+    <button class="random-novu" type="button" aria-label="Random Novu">
+      <span class="icon-cube" aria-hidden="true">
+        <span class="cube-face cube-front"><svg viewBox="0 0 28 28"><path fill="#0b0b0b" d="M3 9 7 3l7 3 7-3 4 6-2 12-6 4-3-3-3 3-6-4z"/><rect x="8.6" y="12.6" width="10.8" height="3.4" rx="1.4" fill="#ff5a1f"/><circle cx="14" cy="20" r="1.1" fill="#e9e6e1"/></svg></span>
+        <span class="cube-face cube-back"></span><span class="cube-face cube-right"></span>
+        <span class="cube-face cube-left"></span><span class="cube-face cube-top"></span>
+        <span class="cube-face cube-bottom"></span>
+      </span>
+    </button>
+    <div class="switch-group">
+      <span class="switch-hint">PRESS</span><span class="switch-hint">·</span>
+      <button class="novubar" type="button">NOVUBAR</button>
+      <span class="switch-hint">·</span><span class="switch-hint">TO SWITCH</span>
+    </div>
+    <a href="#partners" class="bar-fashion">FASHION INDEX <span class="arrow-ne">↗</span></a>
+    <div class="bar-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <main>
+    <div class="stage" id="top">
+      <div class="scene" aria-hidden="true"><canvas id="scene-canvas"></canvas></div>
+      <section class="hero" aria-label="Novu London fashion">
+        <div class="hero-frame">
+          <h1 class="wordmark" aria-label="Novu London">
+            <span class="word-part word-novu" data-fit="464">Novu</span>
+            <span class="registered" aria-hidden="true">
+              <svg viewBox="0 0 70 70" fill="none"><circle cx="35" cy="35" r="31" stroke="currentColor" stroke-width="7"/><path fill="currentColor" d="M25 51V19h14c9 0 14 5 14 13 0 6-3 10-8 12l9 7h-11l-8-7h-1v7zm9-15h5c4 0 6-1 6-4s-2-4-6-4h-5z"/></svg>
+            </span>
+            <span class="word-part word-london" data-fit="737">LONDON</span>
+          </h1>
+          <div class="hero-copy one">
+            <span class="copy-line"><span><strong>BUILT IN 3D,</strong> READY</span></span>
+            <span class="copy-line"><span>TO REDESIGN DIGITAL</span></span>
+            <span class="copy-line"><span>COUTURE</span></span>
+          </div>
+          <div class="hero-copy two">
+            <span class="copy-line"><span>MEET ALL</span></span>
+            <span class="copy-line"><span><strong>7777 STYLED</strong></span></span>
+            <span class="copy-line"><span>BIG-EARED NOVUS</span></span>
+          </div>
+          <img class="hero-still" alt="A fennec fox character in orange shield sunglasses, a silver chain and a white varsity jacket">
+          <div class="hero-tag">NVU0023.<svg viewBox="0 0 46 8" fill="none" aria-hidden="true"><path d="M1 4h43m-4-3 4 3-4 3" stroke="#0b0b0b" stroke-width="1.3"/></svg></div>
+        </div>
+      </section>
+      <section class="story" id="walk" aria-label="Novu story">
+        <div class="story-stick">
+          <div class="story-frame">
+            <article class="story-panel" data-panel="0">
+              <span class="story-label">01 /</span>
+              <h2><span><em>STREETWEAR, BUT</em></span><span><em>MADE YOURS</em></span></h2>
+              <p>Swap your <strong>NOVU's</strong> style with limited digital drops, climb the Fashion Index and shape a look that lives in every world.</p>
+            </article>
+            <article class="story-panel" data-panel="1">
+              <span class="story-label">02 /</span>
+              <h2><span><em>RUN THE</em></span><span><em>NOVUWALK</em></span></h2>
+              <p>Hit the catwalk and flaunt your whole wardrobe. Become a <strong>NOVUFLUENCER</strong> and collect the real-world perks.</p>
+            </article>
+            <div class="story-dashes" aria-hidden="true"><span class="story-dash"><i></i></span><span class="story-dash"><i></i></span></div>
+            <img class="story-still" alt="Full-body fennec fox walking in Novu streetwear">
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="partners" id="partners">
+      <div class="partners-label">03 /</div>
+      <h2 class="partners-heading">OUR<br>PARTNERS</h2>
+      <div class="track-wrap" aria-label="Novu partners">
+        <div class="track" id="partner-track"></div>
+      </div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+      <footer>
+        <div class="footer-grid">
+          <div>
+            <div class="footer-quote">WE SEW, WE STYLE,<br>WE WALK. WE WIN.</div>
+            <div class="footer-manifest">Novu Studio Manifest</div>
+          </div>
+          <div class="footer-connect">CONNECT<br>WITH<br>US</div>
+          <div class="footer-links">
+            <a href="#partners">Our channel <span>↗</span></a>
+            <a href="#partners">View the Market <span>↗</span></a>
+            <a href="#partners">Rarity Ranker <span>↗</span></a>
+            <a href="#partners">NOVU Fashion Index <span>↗</span></a>
+          </div>
+          <div class="footer-links">
+            <a href="#partners">The Atelier Journal <span>↗</span></a>
+            <a href="#partners">Drops <span>↗</span></a>
+            <a href="#partners">Kiln Studio <span>↗</span></a>
+          </div>
+        </div>
+        <div class="creator-credit" aria-label="Made by Kamlesh Singh Kotwal">
+          <span>Designed &amp; built by</span>
+          <strong>Kamlesh Singh Kotwal</strong>
+        </div>
+        <div class="legal-row">
+          <span>© 2026 • NOVU LABS</span>
+          <span>STYLED BY <strong>@NOVUSTUDIOLDN</strong></span>
+          <span class="legal-spacer"></span>
+          <a href="#partners">TERMS &amp; CONDITIONS</a>
+          <a href="#partners">PRIVACY POLICY</a>
+          <span class="legal-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+      const VIDEO_URL = "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261107_145142_a39216fc-13cf-4ce3-baf8-d9bdbfd5f955.mp4";
+      const HERO_URL = "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261107_005547_8a9e6889-76aa-4688-81b5-4452d9afa4ad.png&w=";
+      const STORY_URL = "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261107_005547_a3e2027b-0bcb-455d-bef4-6c0c6d722cb1.png&w=";
+      const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const isPhone = () => innerWidth <= 820;
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+      const clamp = value => Math.max(0, Math.min(1, value));
+      const root = document.documentElement;
+      const body = document.body;
+      const canvas = $("#scene-canvas");
+      const ctx = canvas.getContext("2d", { alpha: false });
+      const stage = $(".stage");
+      const story = $("#walk");
+      const panels = $$(".story-panel");
+      const dashes = $$(".story-dash i");
+      const cardData = [
+        { name:"Snowline", num:"01", type:"PUFFER", col:0, row:0 },
+        { name:"Hush Hare", num:"02", type:"LEATHER", col:1, row:0 },
+        { name:"Night Bandit", num:"03", type:"BOMBER", col:2, row:0 },
+        { name:"Hoot & Co", num:"04", type:"TAILORING", col:0, row:1 },
+        { name:"Axo Lab", num:"05", type:"TECH", col:1, row:1 },
+        { name:"Ember Knit", num:"06", type:"KNITWEAR", col:2, row:1 }
+      ];
+      const track = $("#partner-track");
+
+      function updateUnits() {
+        root.style.setProperty("--vw", root.clientWidth);
+        fitWordmark();
+        resizeCanvas();
+      }
+
+      $$(".word-part").forEach(part => {
+        part.innerHTML = [...part.textContent].map(character => `<span class="char">${character}</span>`).join("");
+      });
+
+      function fitWordmark() {
+        if (isPhone()) return;
+        $$(".word-part[data-fit]").forEach(part => {
+          part.style.letterSpacing = "0px";
+          const letters = $$(".char", part).length;
+          const target = Number(part.dataset.fit) * root.clientWidth / 1440;
+          const natural = part.getBoundingClientRect().width;
+          part.style.letterSpacing = `${(target - natural) / Math.max(1, letters - 1)}px`;
+        });
+      }
+
+      const rounded = value => Math.round(value / 64) * 64;
+      function imageWidth() {
+        return Math.max(1024, Math.min(2048, rounded(innerWidth * devicePixelRatio * 1.05)));
+      }
+      function loadStillImages() {
+        if (!isPhone() && !reduceMotion) return;
+        const width = imageWidth();
+        $(".hero-still").src = HERO_URL + width + "&q=85";
+        $(".story-still").src = STORY_URL + width + "&q=85";
+      }
+
+      for (let copy = 0; copy < 2; copy++) {
+        cardData.forEach(partner => {
+          const card = document.createElement("article");
+          card.className = "card";
+          card.dataset.col = partner.col;
+          card.dataset.row = partner.row;
+          card.innerHTML = `<div class="card-art" aria-hidden="true"></div><div class="card-caption"><span>${partner.name}</span><span class="card-meta">${partner.num} · ${partner.type}</span></div>`;
+          track.append(card);
+        });
+      }
+
+      const trackWrap = $(".track-wrap");
+      const progressFill = $(".progress-fill");
+      let isDragging = false, isPointerOverTrack = false, dragStartX = 0, dragStartScroll = 0, resumeDriftAt = 0;
+      const pauseDrift = duration => { resumeDriftAt = performance.now() + duration };
+      trackWrap.addEventListener("pointerdown", event => {
+        pauseDrift(1200);
+        isDragging = true;
+        dragStartX = event.pageX - trackWrap.offsetLeft;
+        dragStartScroll = trackWrap.scrollLeft;
+        trackWrap.setPointerCapture(event.pointerId);
+      });
+      trackWrap.addEventListener("pointermove", event => {
+        if (!isDragging) return;
+        event.preventDefault();
+        trackWrap.scrollLeft = dragStartScroll - (event.pageX - trackWrap.offsetLeft - dragStartX);
+      });
+      trackWrap.addEventListener("pointermove", event => {
+        if (event.pointerType !== "mouse" || reduceMotion) return;
+        const card = event.target.closest(".card");
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+        card.style.setProperty("--tilt-x", `${(0.5 - y) * 10}deg`);
+        card.style.setProperty("--tilt-y", `${(x - 0.5) * 12}deg`);
+        card.style.setProperty("--pointer-x", `${x * 100}%`);
+        card.style.setProperty("--pointer-y", `${y * 100}%`);
+      });
+      trackWrap.addEventListener("pointerout", event => {
+        const card = event.target.closest(".card");
+        const relatedCard = event.relatedTarget instanceof Element ? event.relatedTarget.closest(".card") : null;
+        if (!card || relatedCard === card) return;
+        card.style.removeProperty("--tilt-x");
+        card.style.removeProperty("--tilt-y");
+        card.style.removeProperty("--pointer-x");
+        card.style.removeProperty("--pointer-y");
+      });
+      const endDrag = () => { isDragging = false; pauseDrift(1200) };
+      trackWrap.addEventListener("pointerup", endDrag);
+      trackWrap.addEventListener("pointercancel", endDrag);
+      trackWrap.addEventListener("wheel", () => pauseDrift(1200), { passive: true });
+      trackWrap.addEventListener("touchstart", () => pauseDrift(1200), { passive: true });
+      trackWrap.addEventListener("pointerenter", event => {
+        if (event.pointerType === "mouse") {
+          isPointerOverTrack = true;
+          pauseDrift(0);
+        }
+      });
+      trackWrap.addEventListener("pointerleave", event => {
+        if (event.pointerType === "mouse") {
+          isPointerOverTrack = false;
+          pauseDrift(600);
+        }
+      });
+
+      let cardCycle = 0;
+      function measureCycle() {
+        const firstClone = track.children[cardData.length];
+        if (firstClone) {
+          cardCycle = firstClone.getBoundingClientRect().left - track.children[0].getBoundingClientRect().left;
+        }
+      }
+      function updateTrackProgress() {
+        const max = trackWrap.scrollWidth - trackWrap.clientWidth;
+        const visible = trackWrap.clientWidth / Math.max(1, trackWrap.scrollWidth);
+        const fraction = max > 0 ? trackWrap.scrollLeft / max : 0;
+        progressFill.style.width = `${(visible + (1 - visible) * fraction) * 100}%`;
+      }
+      if (!reduceMotion) {
+        let lastDrift = performance.now();
+        const drift = time => {
+          if (!isDragging && !isPointerOverTrack && time >= resumeDriftAt && cardCycle > 0) {
+            trackWrap.scrollLeft += Math.min(time - lastDrift, 50) * .03;
+            if (trackWrap.scrollLeft >= cardCycle) trackWrap.scrollLeft %= cardCycle;
+            updateTrackProgress();
+          }
+          lastDrift = time;
+          requestAnimationFrame(drift);
+        };
+        requestAnimationFrame(drift);
+      }
+
+      const frameBlobs = [];
+      const frameEdges = [];
+      const bitmaps = new Map();
+      const pendingBitmap = new Set();
+      let canvasWidth = 0, canvasHeight = 0, currentFrame = 0, targetFrame = 0;
+      let lenis = null, sceneReady = false, lastDrawKey = "";
+      function resizeCanvas() {
+        if (!canvas || isPhone()) return;
+        const ratio = Math.min(devicePixelRatio || 1, 1.5);
+        const width = Math.max(1, Math.round(innerWidth * ratio));
+        const height = Math.max(1, Math.round(innerHeight * ratio));
+        if (canvas.width === width && canvas.height === height) return;
+        canvas.width = width;
+        canvas.height = height;
+        canvasWidth = width;
+        canvasHeight = height;
+        lastDrawKey = "";
+        renderScene();
+      }
+
+      function resizeForDraw() {
+        if (!canvasWidth) resizeCanvas();
+      }
+      function easeInOut(value) {
+        return value < .5 ? 4 * value * value * value : 1 - Math.pow(-2 * value + 2, 3) / 2;
+      }
+      function frameRect(index) {
+        const t = easeInOut(clamp((index / 240 - .35) / .55));
+        const width0 = canvasWidth;
+        const height0 = Math.max(width0 * 900 / 1440, canvasHeight);
+        const scale0 = Math.max(width0 / 1280, height0 / 720);
+        const rect0 = { x:(canvasWidth - 1280 * scale0) / 2, y:0, w:1280 * scale0, h:720 * scale0 };
+        const scale1 = Math.max(canvasWidth / 1280, canvasHeight / 720);
+        const rect1 = {
+          x:(canvasWidth - 1280 * scale1) / 2,
+          y:(canvasHeight - 720 * scale1) / 2,
+          w:1280 * scale1,
+          h:720 * scale1
+        };
+        return {
+          t,
+          rect:{
+            x:rect0.x + (rect1.x - rect0.x) * t,
+            y:rect0.y + (rect1.y - rect0.y) * t,
+            w:rect0.w + (rect1.w - rect0.w) * t,
+            h:rect0.h + (rect1.h - rect0.h) * t
+          }
+        };
+      }
+
+      function drawFrame(index, alpha = 1) {
+        let bitmap = bitmaps.get(index);
+        if (!bitmap) {
+          let nearest = Infinity;
+          for (const [candidate, item] of bitmaps) {
+            const distance = Math.abs(candidate - index);
+            if (distance < nearest && distance <= 12) { nearest = distance; bitmap = item }
+          }
+        }
+        if (!bitmap) return false;
+        const { rect } = frameRect(index);
+        const edge = frameEdges[index] || ["#e9e6e1", "#e9e6e1"];
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = edge[0];
+        ctx.fillRect(0, 0, canvasWidth / 2, canvasHeight);
+        ctx.fillStyle = edge[1];
+        ctx.fillRect(canvasWidth / 2, 0, canvasWidth / 2, canvasHeight);
+        const feather = rect.w * .06;
+        if (rect.x > 0) {
+          const left = ctx.createLinearGradient(rect.x - feather, 0, rect.x, 0);
+          left.addColorStop(0, edge[0]); left.addColorStop(1, "rgba(233,230,225,0)");
+          ctx.fillStyle = left; ctx.fillRect(rect.x - feather, 0, feather, canvasHeight);
+        }
+        if (rect.x + rect.w < canvasWidth) {
+          const right = ctx.createLinearGradient(rect.x + rect.w, 0, rect.x + rect.w + feather, 0);
+          right.addColorStop(0, "rgba(233,230,225,0)"); right.addColorStop(1, edge[1]);
+          ctx.fillStyle = right; ctx.fillRect(rect.x + rect.w, 0, feather, canvasHeight);
+        }
+        ctx.drawImage(bitmap, rect.x, rect.y, rect.w, rect.h);
+        ctx.restore();
+        return true;
+      }
+
+      function renderScene() {
+        if (!sceneReady || !canvasWidth || isPhone()) return;
+        const floor = Math.floor(currentFrame);
+        const blend = currentFrame - floor;
+        const framing = frameRect(currentFrame).t;
+        const key = `${floor}:${blend.toFixed(2)}:${framing.toFixed(3)}`;
+        if (key === lastDrawKey) return;
+        if (drawFrame(floor)) {
+          if (blend > .001) drawFrame(Math.min(240, floor + 1), blend);
+          lastDrawKey = key;
+        }
+      }
+
+      function queueBitmap(index) {
+        if (index < 0 || index >= frameBlobs.length || !frameBlobs[index] || bitmaps.has(index) || pendingBitmap.has(index)) return;
+        if (pendingBitmap.size >= 8) return;
+        pendingBitmap.add(index);
+        createImageBitmap(frameBlobs[index]).then(bitmap => {
+          pendingBitmap.delete(index);
+          bitmaps.set(index, bitmap);
+          while (bitmaps.size > 56) {
+            const oldest = bitmaps.keys().next().value;
+            bitmaps.get(oldest).close();
+            bitmaps.delete(oldest);
+          }
+          renderScene();
+        }).catch(error => {
+          pendingBitmap.delete(index);
+          console.error("Could not prepare scene frame", index, error);
+        });
+      }
+
+      function queueNearbyBitmaps() {
+        const low = Math.max(0, Math.min(currentFrame, targetFrame) - 4);
+        const high = Math.min(240, Math.max(currentFrame, targetFrame) + 14);
+        for (let i = Math.floor(low); i <= high && pendingBitmap.size < 8; i++) queueBitmap(i);
+      }
+
+      function setSceneReady() {
+        if (sceneReady) return;
+        sceneReady = true;
+        resizeCanvas();
+        queueNearbyBitmaps();
+        renderScene();
+        requestAnimationFrame(() => requestAnimationFrame(() => body.classList.add("scene-on")));
+      }
+
+      function makeEncoderWorker() {
+        const source = `
+          let canvas, context;
+          self.onmessage = async event => {
+            const { index, frame } = event.data;
+            try {
+              if (!canvas) { canvas = new OffscreenCanvas(frame.displayWidth, frame.displayHeight); context = canvas.getContext('2d', { willReadFrequently:true }); }
+              context.drawImage(frame, 0, 0);
+              frame.close();
+              const { width, height } = canvas;
+              const data = context.getImageData(0, 0, width, height).data;
+              const edgeColor = x => {
+                let r=0,g=0,b=0,count=0;
+                for (let y=0;y<height;y++) for(let dx=0;dx<4;dx++) {
+                  const p=(y*width+x+dx)*4; r+=data[p];g+=data[p+1];b+=data[p+2];count++;
+                }
+                return 'rgb('+Math.round(r/count)+','+Math.round(g/count)+','+Math.round(b/count)+')';
+              };
+              const blob = await canvas.convertToBlob({ type:'image/jpeg', quality:.88 });
+              self.postMessage({ index, blob, edges:[edgeColor(0),edgeColor(width-4)] });
+            } catch (error) {
+              self.postMessage({ index, error:String(error) });
+            }
+          };
+        `;
+        return new Worker(URL.createObjectURL(new Blob([source], { type:"text/javascript" })));
+      }
+
+      async function loadVideoWithWebCodecs() {
+        if (!("VideoDecoder" in window) || !("EncodedVideoChunk" in window) || !("Worker" in window) || !("OffscreenCanvas" in window) || !("ReadableStream" in window)) {
+          throw new Error("This browser does not support the scene decoder.");
+        }
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/mp4box@0.5.2/dist/mp4box.all.min.js";
+        await new Promise((resolve, reject) => {
+          script.onload = resolve;
+          script.onerror = () => reject(new Error("Could not load the MP4 parser."));
+          document.head.append(script);
+        });
+        if (!window.MP4Box) throw new Error("MP4 parser did not initialize.");
+
+        const response = await fetch(VIDEO_URL, { mode:"cors" });
+        if (!response.ok || !response.body) throw new Error(`Scene video request failed (${response.status}).`);
+        const chunks = [];
+        const reader = response.body.getReader();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value);
+        }
+        const total = chunks.reduce((sum, chunk) => sum + chunk.byteLength, 0);
+        const bytes = new Uint8Array(total);
+        let position = 0;
+        chunks.forEach(chunk => { bytes.set(chunk, position); position += chunk.byteLength });
+        const file = MP4Box.createFile();
+        let decoder, workers = [], workerQueue = [], workerBusy = [];
+        let sampleQueue = [], feeding = false, flushStarted = false, trackId = 0, frameCount = 0;
+        let expectedSamples = Infinity, acceptedSamples = 0, trackTimescale = 1;
+
+        const workerCount = Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 2) - 1));
+        workers = Array.from({ length:workerCount }, () => makeEncoderWorker());
+        workerBusy = workers.map(() => false);
+        workers.forEach((worker, slot) => {
+          worker.onmessage = event => {
+            workerBusy[slot] = false;
+            const { index, blob, edges, error } = event.data;
+            if (error) console.error("Scene frame encoding failed", index, error);
+            else {
+              frameBlobs[index] = blob;
+              frameEdges[index] = edges;
+              if (index === 0) setSceneReady();
+              queueBitmap(index);
+            }
+            dispatchWorker();
+            pumpDecoder();
+          };
+        });
+
+        function dispatchWorker() {
+          for (let i = 0; i < workers.length; i++) {
+            if (workerBusy[i] || workerQueue.length === 0) continue;
+            const item = workerQueue.shift();
+            workerBusy[i] = true;
+            workers[i].postMessage(item, [item.frame]);
+          }
+        }
+
+        function maybeFlush() {
+          if (!flushStarted && sampleQueue.length === 0 && fileEnd && acceptedSamples >= expectedSamples && decoder && decoder.decodeQueueSize === 0) {
+            flushStarted = true;
+            decoder.flush().catch(error => console.error("Scene decoder flush failed", error));
+          }
+        }
+        let fileEnd = false;
+        function pumpDecoder() {
+          if (!decoder || feeding) return;
+          feeding = true;
+          try {
+            while (sampleQueue.length && decoder.decodeQueueSize < 4 && workerQueue.length < workers.length * 3) {
+              const sample = sampleQueue.shift();
+              const chunk = new EncodedVideoChunk({
+                type: sample.is_sync ? "key" : "delta",
+                timestamp: Math.round(sample.cts * 1e6 / trackTimescale),
+                duration: Math.round(sample.duration * 1e6 / trackTimescale),
+                data: sample.data
+              });
+              decoder.decode(chunk);
+            }
+          } catch (error) {
+            console.error("Scene frame decoding failed", error);
+          } finally {
+            feeding = false;
+          }
+          maybeFlush();
+        }
+
+        file.onError = error => console.error("MP4 parsing failed", error);
+        file.onReady = info => {
+          const videoTrack = info.videoTracks && info.videoTracks[0];
+          if (!videoTrack) throw new Error("The scene video has no video track.");
+          trackId = videoTrack.id;
+          expectedSamples = videoTrack.nb_samples || Infinity;
+          trackTimescale = videoTrack.timescale || 1;
+          const trak = file.moov.traks.find(item => item.tkhd.track_id === trackId);
+          const avcC = trak?.mdia?.minf?.stbl?.stsd?.entries?.[0]?.avcC;
+          let description;
+          if (avcC && window.DataStream) {
+            const stream = new DataStream(undefined, 0, DataStream.BIG_ENDIAN);
+            avcC.write(stream);
+            description = stream.buffer.slice(8);
+          }
+          decoder = new VideoDecoder({
+            output(frame) {
+              const index = frameCount++;
+              const slot = index % workers.length;
+              workerQueue.push({ index, frame });
+              dispatchWorker();
+            },
+            error(error) { console.error("Scene VideoDecoder error", error) }
+          });
+          decoder.configure({
+            codec: videoTrack.codec,
+            codedWidth: videoTrack.video.width,
+            codedHeight: videoTrack.video.height,
+            description,
+            hardwareAcceleration: "prefer-software"
+          });
+          file.setExtractionOptions(trackId, null, { nbSamples:12 });
+          file.onSamples = (_id, _user, samples) => {
+            sampleQueue.push(...samples);
+            acceptedSamples += samples.length;
+            pumpDecoder();
+          };
+          decoder.addEventListener("dequeue", pumpDecoder);
+          file.start();
+          pumpDecoder();
+        };
+        const buffer = bytes.buffer;
+        buffer.fileStart = 0;
+        file.appendBuffer(buffer);
+        file.flush();
+        fileEnd = true;
+        pumpDecoder();
+      }
+
+      function videoFallback() {
+        const video = document.createElement("video");
+        video.muted = true;
+        video.playsInline = true;
+        video.crossOrigin = "anonymous";
+        video.preload = "auto";
+        Object.assign(video.style, { position:"fixed", width:"2px", height:"2px", opacity:".01", left:"-10px", top:"-10px", pointerEvents:"none" });
+        document.body.append(video);
+        video.addEventListener("error", () => console.error("Fallback scene video failed to load.", video.error));
+        video.addEventListener("loadedmetadata", () => {
+          video.playbackRate = .5;
+          video.play().catch(error => console.error("Fallback scene playback failed", error));
+        });
+        video.addEventListener("loadeddata", () => {
+          const fallbackCanvas = document.createElement("canvas");
+          fallbackCanvas.width = 1280; fallbackCanvas.height = 720;
+          const fallbackContext = fallbackCanvas.getContext("2d", { willReadFrequently:true });
+          let index = 0;
+          const capture = async () => {
+            if (video.readyState >= 2) {
+              fallbackContext.drawImage(video, 0, 0, 1280, 720);
+              const blob = await new Promise(resolve => fallbackCanvas.toBlob(resolve, "image/jpeg", .88));
+              if (blob) {
+                frameBlobs[index] = blob;
+                frameEdges[index] = ["#e9e6e1","#e9e6e1"];
+                queueBitmap(index);
+                if (index === 0) setSceneReady();
+                index++;
+              }
+            }
+            if (index < 241 && !video.ended) {
+              if ("requestVideoFrameCallback" in video) video.requestVideoFrameCallback(capture);
+              else setTimeout(capture, 1000 / 24);
+            }
+          };
+          capture();
+        }, { once:true });
+        video.src = VIDEO_URL;
+      }
+
+      function updateSceneTarget() {
+        const stageRect = stage.getBoundingClientRect();
+        const maxProgress = Math.max(1, stage.offsetHeight - innerHeight);
+        const progress = clamp(-stageRect.top / maxProgress);
+        targetFrame = Math.min(1, progress / .85) * 240;
+        if (!isPhone() && !reduceMotion) $(".wordmark").style.transform = `translateY(${-Math.min(1, scrollY / innerHeight) * innerHeight * .4}px)`;
+        const storyProgress = clamp(-story.getBoundingClientRect().top / Math.max(1, story.offsetHeight - innerHeight));
+        const firstAlpha = clamp((storyProgress - .20) / .06) * (1 - clamp((storyProgress - .43) / .06));
+        const secondAlpha = clamp((storyProgress - .64) / .08);
+        panels.forEach((panel, index) => {
+          const alpha = reduceMotion ? (index === 0 ? (storyProgress < .5 ? 1 : 0) : (storyProgress >= .5 ? 1 : 0)) : (index === 0 ? firstAlpha : secondAlpha);
+          panel.style.opacity = String(alpha);
+          panel.style.pointerEvents = alpha > .1 ? "auto" : "none";
+          const heading = $$("h2 em", panel);
+          heading.forEach((line, lineIndex) => {
+            const eased = 1 - Math.pow(1 - alpha, 3);
+            line.style.transform = `translateY(${(1 - eased) * (105 + lineIndex * 20)}%)`;
+          });
+          const label = $(".story-label", panel);
+          label.style.transform = `translateX(${(1 - alpha) * (index === 0 ? 16 : -16)}px)`;
+          $("p", panel).style.transform = `translateY(${(1 - alpha) * 24}px)`;
+          if (!isPhone()) panel.style.left = index === 0 && !reduceMotion && firstAlpha > .01 ? "calc(860*var(--u))" : "calc(140*var(--u))";
+        });
+        if (!reduceMotion && !isPhone()) {
+          $(".story-dashes").style.opacity = String(Math.max(firstAlpha, secondAlpha));
+          $(".story-dashes").style.left = firstAlpha > secondAlpha ? "calc(860*var(--u))" : "calc(140*var(--u))";
+          dashes[0].style.transform = `scaleX(${clamp((storyProgress - .20) / .35)})`;
+          dashes[1].style.transform = `scaleX(${clamp((storyProgress - .55) / .45)})`;
+        }
+      }
+
+      function animateScene(now) {
+        const k = lenis ? .6 : .25;
+        const dt = animateScene.last ? now - animateScene.last : 16.7;
+        animateScene.last = now;
+        currentFrame += (targetFrame - currentFrame) * (1 - Math.pow(1 - k, dt / 16.7));
+        if (Math.abs(targetFrame - currentFrame) < .02) currentFrame = targetFrame;
+        updateSceneTarget();
+        queueNearbyBitmaps();
+        renderScene();
+        requestAnimationFrame(animateScene);
+      }
+
+      function scrollState() {
+        const viewport = innerHeight;
+        body.classList.toggle("scrolled", scrollY > viewport * .35);
+        body.classList.toggle("at-end", $(".partners").getBoundingClientRect().top < viewport * .55);
+      }
+
+      const stops = () => [0, story.offsetTop + innerHeight * .02, story.offsetTop + innerHeight * 1.35, $("#partners").offsetTop];
+      let stopIndex = 0;
+      function jumpNext() {
+        const points = stops();
+        stopIndex = (stopIndex + 1) % points.length;
+        const target = points[stopIndex];
+        if (lenis) lenis.scrollTo(target, { duration:1.6 });
+        else window.scrollTo({ top:target, behavior:reduceMotion ? "auto" : "smooth" });
+        const button = $(".novubar");
+        button.classList.add("hit");
+        setTimeout(() => button.classList.remove("hit"), 140);
+      }
+
+      function setupMenu() {
+        const button = $(".menu-button");
+        button.addEventListener("click", () => {
+          const open = !body.classList.contains("menu-open");
+          body.classList.toggle("menu-open", open);
+          button.setAttribute("aria-expanded", String(open));
+          button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+          $(".menu-overlay").setAttribute("aria-hidden", String(!open));
+        });
+        $$(".menu-overlay a").forEach(link => link.addEventListener("click", () => {
+          body.classList.remove("menu-open");
+          button.setAttribute("aria-expanded", "false");
+          button.setAttribute("aria-label", "Open menu");
+          $(".menu-overlay").setAttribute("aria-hidden", "true");
+        }));
+      }
+
+      async function opening() {
+        setTimeout(() => body.classList.remove("pre"), 4000);
+        setTimeout(() => body.classList.remove("pre"), 6000);
+        if (reduceMotion) { body.classList.remove("pre"); return }
+        await document.fonts.ready;
+        body.classList.remove("pre");
+        const easing = "cubic-bezier(.16,1,.3,1)";
+        const animated = [];
+        const animate = (element, keyframes, duration, delay) => {
+          if (!element) return;
+          animated.push(element.animate(keyframes, { duration, delay, easing, fill:"backwards" }));
+        };
+        if (isPhone() || reduceMotion) animate($(".hero-still"), [{ opacity:0, transform:"scale(1.08)", filter:"blur(10px)" }, { opacity:1, transform:"scale(1)", filter:"blur(0)" }], 1800, 0);
+        const chars = $$(".wordmark .char, .registered");
+        chars.forEach((element, index) => animate(element, [{ opacity:0, transform:"translateY(60%) rotate(4deg)" }, { opacity:1, transform:"translateY(0) rotate(0)" }], 1100, 250 + index * 55));
+        $$(".hero-copy").forEach(copy => $$(".copy-line", copy).forEach((line, index) => animate(line.firstElementChild, [{ opacity:0, transform:"translateY(100%)" }, { opacity:1, transform:"translateY(0)" }], 900, 850 + index * 70)));
+        animate($(".hero-tag"), [{ opacity:0, transform:"translateX(-20px)" }, { opacity:1, transform:"translateX(0)" }], 900, 1300);
+        [$(".nav-trailer"), $(".nav-center"), $(".nav-market"), $(".menu-button")].forEach((element, index) => animate(element, [{ opacity:0, transform:"translateY(-24px)" }, { opacity:1, transform:"translateY(0)" }], 900, 500 + index * 80));
+        [$(".roadmap"), $(".random-novu"), $(".switch-group"), $(".bar-fashion"), $(".bar-dots")].forEach((element, index) => {
+          const from = element === $(".switch-group") ? "translate(-50%,24px)" : "translateY(24px)";
+          const to = element === $(".switch-group") ? "translate(-50%,0)" : "translateY(0)";
+          animate(element, [{ opacity:0, transform:from }, { opacity:1, transform:to }], 900, 700 + index * 80);
+        });
+        await Promise.all(animated.map(item => item.finished.catch(() => {})));
+        animated.forEach(item => item.cancel());
+      }
+
+      function loadLenis() {
+        if (reduceMotion) return;
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js";
+        script.onload = () => {
+          if (!window.Lenis) { console.error("Lenis did not initialize."); return }
+          lenis = new Lenis({ lerp:.085, smoothWheel:true, wheelMultiplier:1, anchors:true });
+          const raf = time => { lenis.raf(time); requestAnimationFrame(raf) };
+          requestAnimationFrame(raf);
+        };
+        script.onerror = () => console.error("Could not load Lenis smooth scrolling.");
+        document.head.append(script);
+      }
+
+      $(".novubar").addEventListener("click", jumpNext);
+      window.addEventListener("keydown", event => {
+        if (event.code !== "Space" || /INPUT|TEXTAREA|SELECT|BUTTON|A/.test(event.target.tagName)) return;
+        event.preventDefault();
+        jumpNext();
+      });
+      $(".nav-trailer").addEventListener("click", jumpNext);
+      $(".random-novu").addEventListener("click", () => {
+        const randomCard = Math.floor(Math.random() * cardData.length);
+        trackWrap.scrollTo({ left:track.children[randomCard].offsetLeft, behavior:reduceMotion ? "auto" : "smooth" });
+      });
+      window.addEventListener("scroll", scrollState, { passive:true });
+      window.addEventListener("resize", () => {
+        updateUnits();
+        loadStillImages();
+        measureCycle();
+        updateTrackProgress();
+      }, { passive:true });
+      trackWrap.addEventListener("scroll", updateTrackProgress, { passive:true });
+      updateUnits();
+      loadStillImages();
+      measureCycle();
+      updateTrackProgress();
+      scrollState();
+      setupMenu();
+      opening();
+      loadLenis();
+
+      if (!reduceMotion && !isPhone()) {
+        loadVideoWithWebCodecs().catch(error => {
+          console.error("The WebCodecs scene pipeline failed; using video-frame fallback.", error);
+          videoFallback();
+        });
+        requestAnimationFrame(animateScene);
+      }
+
+      document.fonts.ready.then(fitWordmark);
+    })();
+  </script>
+</body>
+</html>
